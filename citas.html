@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mitz Nails - Agendar cita</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="uñas, citas, manicura, pedicura, gel, acrílico" name="keywords">
+    <meta content="Agenda tus citas de uñas en Mitz Nails y sincronízalas con Google Calendar." name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.js" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-primary py-3 d-none d-md-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0"></div>
+                <div class="col-md-6 text-center text-lg-right">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-white px-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="text-white px-3" href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid position-relative nav-bar p-0">
+        <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
+            <nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
+                <a href="index.html" class="navbar-brand d-block d-lg-none">
+                    <h1 class="m-0 display-4 text-primary"><span class="text-secondary">Mitz</span>Nails</h1>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto py-0">
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="service.html" class="nav-item nav-link">Servicios</a>
+                        <a href="gallery.html" class="nav-item nav-link">Galería</a>
+                    </div>
+                    <a href="product.html" class="navbar-brand mx-5 d-none d-lg-block">
+                        <h1 class="m-0 display-4 text-primary"><span class="text-secondary">Mitz</span>Nails</h1>
+                    </a>
+                    <div class="navbar-nav mr-auto py-0">
+                        <a href="citas.html" class="nav-item nav-link active">Agendar cita</a>
+                        <a href="login.html" class="nav-item nav-link" id="nav-login-link">Iniciar sesión</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid page-header" style="margin-bottom: 90px;">
+        <div class="container text-center py-5">
+            <h1 class="text-white display-3 mt-lg-5">Agendar cita</h1>
+            <div class="d-inline-flex align-items-center text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Home</a></p>
+                <i class="fa fa-circle px-3"></i>
+                <p class="m-0">Citas</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Citas Start -->
+    <div class="container py-5">
+        <div class="row">
+            <!-- Formulario -->
+            <div class="col-lg-7 mb-5">
+                <div class="bg-light rounded p-4 shadow-sm">
+                    <h3 class="mb-4">Reserva tu cita en Mitz Nails</h3>
+
+                    <form id="citaForm">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Nombre completo</label>
+                                <input type="text" class="form-control" name="nombre" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Teléfono</label>
+                                <input type="tel" class="form-control" name="telefono" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Correo electrónico</label>
+                            <input type="email" class="form-control" name="correo">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Servicio</label>
+                                <select class="form-control" name="servicio" required>
+                                    <option value="">Selecciona un servicio</option>
+                                    <option value="Manicure clásico">Manicure clásico</option>
+                                    <option value="Pedicure spa">Pedicure spa</option>
+                                    <option value="Gel semipermanente">Gel semipermanente</option>
+                                    <option value="Baño de acrílico">Baño de acrílico</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Fecha</label>
+                                <input type="date" class="form-control" name="fecha" id="fecha" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Hora</label>
+                                <input type="time" class="form-control" name="hora" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Notas adicionales</label>
+                            <textarea class="form-control" name="notas" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="whatsappCheck" name="whatsapp">
+                            <label class="form-check-label" for="whatsappCheck">Quiero confirmación por WhatsApp</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary px-4 py-2">Agendar cita</button>
+                        <div id="form_message" class="mt-3 small"></div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Citas End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer bg-light py-5" style="margin-top: 90px;">
+        <div class="container text-center py-5">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <a href="index.html" class="navbar-brand m-0">
+                        <h1 class="m-0 mt-n2 display-4 text-primary"><span class="text-secondary">Mitz</span>Nails</h1>
+                    </a>
+                </div>
+                <div class="col-12 mb-4">
+                    <a class="btn btn-outline-secondary btn-social mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-secondary btn-social mr-2" href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <div class="col-12 mt-2 mb-4">
+                    <div class="row">
+                        <div class="col-sm-6 text-center text-sm-right border-right mb-3 mb-sm-0">
+                            <h5 class="font-weight-bold mb-2">Ubicación</h5>
+                            <p class="mb-2">Guanajuato, Río Bravo</p>
+                            <p class="mb-0">+52 1 899 289 3083</p>
+                        </div>
+                        <div class="col-sm-6 text-center text-sm-left">
+                            <h5 class="font-weight-bold mb-2">Horario</h5>
+                            <p class="mb-2">Lunes – Sábado, 8AM – 5PM</p>
+                            <p class="mb-0">Domingo: Cerrado</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <p class="m-0">&copy; Mitz Nails. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn_secondary px-2 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JS Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+
+    <!-- Template main JS -->
+    <script src="js/main.js"></script>
+
+    <!-- ➤ BOTÓN LOGIN DINÁMICO -->
+    <script type="module" src="js/auth-nav.js"></script>
+
+    <!-- ➤ SCRIPT FINAL: LOGIN OBLIGATORIO + GUARDAR CITA EN appointments -->
+    <script type="module">
+        import { auth, db } from "./js/firebase.js";
+        import {
+            collection,
+            addDoc,
+            serverTimestamp,
+            doc,
+            setDoc
+        } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+        // Fecha mínima hoy
+        const fechaInput = document.getElementById("fecha");
+        if (fechaInput) fechaInput.min = new Date().toISOString().split("T")[0];
+
+        const DURACIONES = {
+            "Manicure clásico": 45,
+            "Pedicure spa": 60,
+            "Gel semipermanente": 75,
+            "Baño de acrílico": 90
+        };
+
+        const PRECIOS = {
+            "Manicure clásico": 180,
+            "Pedicure spa": 220,
+            "Gel semipermanente": 250,
+            "Baño de acrílico": 280
+        };
+
+        const citaForm = document.getElementById("citaForm");
+
+        if (citaForm) {
+            citaForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                // ➤ LOGIN OBLIGATORIO
+                if (!auth.currentUser) {
+                    alert("Debes iniciar sesión para agendar una cita.");
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                const formData = new FormData(citaForm);
+
+                const datosCita = {
+                    nombre: formData.get("nombre"),
+                    telefono: formData.get("telefono"),
+                    correo: formData.get("correo"),
+                    servicio: formData.get("servicio"),
+                    fecha: formData.get("fecha"),
+                    hora: formData.get("hora"),
+                    notas: formData.get("notas"),
+                    whatsapp: formData.get("whatsapp") ? 1 : 0
+                };
+
+                // Formato con ESPACIO para que el panel lo pueda separar en fecha/hora
+                const starts_at = `${datosCita.fecha} ${datosCita.hora}`;
+
+                const price_mxn = PRECIOS[datosCita.servicio];
+                const duration_min = DURACIONES[datosCita.servicio];
+
+                try {
+                    const user = auth.currentUser;
+
+                    // ➤ GUARDAR CITA en appointments (VARIAS POR CUENTA)
+                    await addDoc(collection(db, "appointments"), {
+                        client_uid: user.uid,                              // 🔑 para filtrar en clientas
+                        client_name: datosCita.nombre,
+                        client_email: datosCita.correo || user.email || "",
+                        phone: datosCita.telefono,
+                        service_name: datosCita.servicio,
+                        price_mxn,
+                        duration_min,
+                        starts_at,
+                        status: "pending",                                 // el panel lo normaliza a "pendiente"
+                        notes: datosCita.notas || "",
+                        whatsapp: datosCita.whatsapp,
+                        created_at: serverTimestamp()
+                    });
+
+                    // ➤ GUARDAR / ACTUALIZAR CLIENTA EN users/
+                    await setDoc(
+                        doc(db, "users", user.uid),
+                        {
+                            // Campos en inglés (compatibles con clientas.html nuevo)
+                            name: datosCita.nombre,
+                            email: datosCita.correo || user.email || "",
+                            phone: datosCita.telefono,
+                            role: "cliente",
+                            notes: datosCita.notas || "-",
+                            last_appointment: starts_at,
+                            last_service: datosCita.servicio,
+
+                            // Campos en español (por si los usas en otro lado)
+                            nombre: datosCita.nombre,
+                            correo: datosCita.correo,
+                            telefono: datosCita.telefono,
+                            notas: datosCita.notas || "-",
+                            ultima_cita: starts_at,
+                            servicio: datosCita.servicio
+                        },
+                        { merge: true }
+                    );
+
+                    // Guardar para confirmación
+                    localStorage.setItem(
+                        "ultimaCita",
+                        JSON.stringify({ ...datosCita, price_mxn, duration_min })
+                    );
+
+                    window.location.href = "confirmar_citas.html";
+
+                } catch (error) {
+                    console.error("ERROR:", error);
+                    const msg = document.getElementById("form_message");
+                    msg.textContent = "Ocurrió un error al guardar tu cita. Intenta de nuevo.";
+                    msg.classList.add("text-danger");
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mitz Nails — Registro</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Mitz Nails Registro" name="keywords">
+    <meta content="Crea tu cuenta para agendar citas y acceder a nuestros servicios." name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-primary py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6 text-center text-lg-right">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-white px-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="text-white px-3" href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid position-relative nav-bar p-0">
+        <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
+            <nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
+                <a href="product.html" class="navbar-brand d-block d-lg-none">
+                    <h1 class="m-0 display-4 text-primary"><span class="text-secondary">Mitz</span> Nails</h1>
+                </a>
+
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+
+                    <div class="navbar-nav ml-auto py-0">
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="service.html" class="nav-item nav-link">Servicios</a>
+                        <a href="gallery.html" class="nav-item nav-link">Galería</a>
+                    </div>
+
+                    <a href="product.html" class="navbar-brand mx-5 d-none d-lg-block">
+                        <h1 class="m-0 display-4 text-primary"><span class="text-secondary">Mitz</span> Nails</h1>
+                    </a>
+
+                    <div class="navbar-nav mr-auto py-0">
+                        <a href="citas.html" class="nav-item nav-link">Agendar cita</a>
+                        <!-- AQUI SOLO AGREGO ESTE ID -->
+                        <a href="login.html" class="nav-item nav-link" id="nav-login-link">Iniciar sesión</a>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid page-header" style="margin-bottom: 60px;">
+        <div class="container text-center py-5">
+            <h1 class="text-white display-3 mt-lg-5">Crear cuenta</h1>
+            <div class="d-inline-flex align-items-center text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+                <i class="fa fa-circle px-3"></i>
+                <p class="m-0">Registro</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Registro Start -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-5">
+                <div class="bg-light rounded p-4 shadow-sm">
+                    <h3 class="mb-4 text-center text-primary">Crea tu cuenta</h3>
+
+                    <div id="alertBox" class="alert d-none"></div>
+
+                    <form id="registerForm" novalidate>
+                        <div class="form-group">
+                            <label><i class="fa fa-user mr-2 text-secondary"></i>Nombre</label>
+                            <input type="text" id="nombre" class="form-control p-3" placeholder="Tu nombre completo" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa fa-envelope mr-2 text-secondary"></i>Correo electrónico</label>
+                            <input type="email" id="email" class="form-control p-3" placeholder="tu@correo.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa fa-lock mr-2 text-secondary"></i>Contraseña</label>
+                            <input type="password" id="password" class="form-control p-3" placeholder="Mínimo 6 caracteres" minlength="6" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa fa-key mr-2 text-secondary"></i>¿Código de staff? (opcional)</label>
+                            <input type="text" id="staffCode" class="form-control p-3" placeholder="Déjalo vacío si eres cliente">
+                        </div>
+
+                        <button class="btn btn-primary btn-block py-3">Registrarme</button>
+                    </form>
+
+                    <p class="mt-3 mb-0 text-center">
+                        ¿Ya tienes cuenta?
+                        <a href="login.html" class="text-secondary font-weight-bold">Inicia sesión</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Registro End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer bg-light py-5 mt-5">
+        <div class="container text-center py-5">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <a href="index.html" class="navbar-brand m-0">
+                        <h1 class="m-0 mt-n2 display-4 text-primary"><span class="text-secondary">Mitz</span>Nails</h1>
+                    </a>
+                </div>
+                <div class="col-12 mb-4">
+                    <a class="btn btn-outline-secondary btn-social mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-secondary btn-social mr-2" href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="col-12">
+                    <p class="m-0">&copy; Mitz Nails. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Firebase Registro Script -->
+    <script type="module">
+        import { auth, db } from "./js/firebase.js";
+        import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+        import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+        const form = document.getElementById("registerForm");
+        const alertBox = document.getElementById("alertBox");
+
+        const STAFF_CODE = "MITZ-ADMIN-2025";
+
+        const show = (msg, type = "info") => {
+            alertBox.className = `alert alert-${type}`;
+            alertBox.textContent = msg;
+            alertBox.classList.remove("d-none");
+        };
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            alertBox.classList.add("d-none");
+
+            const nombre = document.getElementById("nombre").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const pass = document.getElementById("password").value;
+            const code = document.getElementById("staffCode").value.trim();
+
+            if (!nombre || !email || pass.length < 6) {
+                show("Completa todos los campos y usa una contraseña válida.", "danger");
+                return;
+            }
+
+            try {
+                const cred = await createUserWithEmailAndPassword(auth, email, pass);
+
+                const role = (code && code === STAFF_CODE) ? "admin" : "cliente";
+
+                await setDoc(doc(db, "users", cred.user.uid), {
+                    name: nombre,
+                    email,
+                    role,
+                    createdAt: serverTimestamp()
+                });
+
+                if (role === "admin") {
+                    window.location.href = "admin.html";
+                } else {
+                    window.location.href = "clientas.html";
+                }
+
+            } catch (err) {
+                console.error(err);
+                show("Error: " + err.message, "danger");
+            }
+        });
+    </script>
+
+    <!-- JS Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- ❤️ NAV LOGIN DINÁMICO -->
+    <script type="module" src="js/auth-nav.js"></script>
+
+</body>
+</html>

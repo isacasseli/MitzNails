@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>Mitz Nails - Panel admin</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="uñas, citas, manicura, pedicura, gel, acrílico, panel admin" name="keywords">
+  <meta content="Panel de administración de citas para Mitz Nails." name="description">
+
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="icon">
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Owl + Lightbox -->
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <style>
+    /* Estilos suaves del panel admin */
+    body {
+      background-color: #fff;
+    }
+
+    .admin-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 14px 30px rgba(232, 85, 146, 0.916);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+    }
+
+    .admin-title {
+      font-weight: 600;
+      font-size: 1.18rem;
+      margin-bottom: 0;
+    }
+
+    .admin-subtitle {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .metric-card {
+      border-radius: 18px;
+      padding: 16px 18px;
+      background: #fff;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.04);
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #888;
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 1.7rem;
+      font-weight: 600;
+    }
+
+    .metric-sub {
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+
+    .status-pending {
+      background: rgba(255, 193, 7, 0.12);
+      color: #b38900;
+    }
+
+    .status-confirmed {
+      background: rgba(40, 167, 69, 0.12);
+      color: #1c7c37;
+    }
+
+    .status-cancelled {
+      background: rgba(220, 53, 69, 0.12);
+      color: #a11623;
+    }
+
+    .status-done {
+      background: rgba(0, 123, 255, 0.12);
+      color: #0056b3;
+    }
+
+    .btn-approve {
+      border-radius: 999px;
+      border: 1px solid #20c997;
+      color: #20c997;
+      background: #fff;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+    }
+
+    .btn-approve-active {
+      background: #20c997;
+      color: #fff;
+    }
+
+    .btn-cancel {
+      border-radius: 999px;
+      border: 1px solid #ff6b81;
+      color: #ff6b81;
+      background: #fff;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+    }
+
+    .btn-cancel-active {
+      background: #ff6b81;
+      color: #fff;
+    }
+
+    .avatar-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff9ac8, #87c5ff);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-right: 8px;
+    }
+
+    /* Tabla */
+    .table th {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #888;
+      border-top: none;
+      border-bottom: 1px solid #eee !important;
+    }
+
+    .table td {
+      font-size: 0.9rem;
+      vertical-align: middle !important;
+      border-top-color: #f2f2f2;
+    }
+
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .admin-user-chip {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: #fff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .05);
+    }
+
+    .admin-user-chip span {
+      margin: 0 4px;
+      font-size: 0.88rem;
+    }
+
+    .admin-user-chip small {
+      font-size: 0.75rem;
+      color: #777;
+    }
+
+    .btn-logout {
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 0.8rem;
+    }
+
+    /* Overlay de confirmación */
+    #deleteConfirmOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    #deleteConfirmBox {
+      background: #fff;
+      border-radius: 16px;
+      padding: 18px 20px;
+      max-width: 360px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+    }
+
+    #deleteConfirmBox h6 {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    #deleteConfirmBox p {
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Topbar Start -->
+  <div class="container-fluid bg-primary py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
+          <div class="d-inline-flex align-items-center">
+            <small class="text-white mr-3">
+              Panel de administración de Mitz Nails
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6 text-center text-lg-right">
+          <div class="d-inline-flex align-items-center">
+            <a class="text-white px-3" href="#"><i class="fab fa-facebook-f"></i></a>
+            <a class="text-white px-3" href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Topbar End -->
+
+  <!-- Navbar Start -->
+  <div class="container-fluid position-relative nav-bar p-0">
+    <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
+      <nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
+        <a href="index.html" class="navbar-brand d-block d-lg-none">
+          <h1 class="m-0 display-4 text-primary"><span class="text-secondary">Mitz</span> Nails</h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+          <div class="navbar-nav ml-auto py-0">
+            <a href="index.html" class="nav-item nav-link">Inicio</a>
+            <a href="service.html" class="nav-item nav-link">Servicios</a>
+            <a href="gallery.html" class="nav-item nav-link">Galería</a>
+          </div>
+          <a href="product.html" class="navbar-brand mx-5 d-none d-lg-block">
+            <h1 class="m-0 display-4 text-primary"><span class="text-secondary">Mitz</span> Nails</h1>
+          </a>
+          <div class="navbar-nav mr-auto py-0">
+            <a href="citas.html" class="nav-item nav-link">Agendar cita</a>
+            <a href="login.html" class="nav-item nav-link" id="nav-login-link">Iniciar sesión</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <!-- Navbar End -->
+
+  <!-- Header Start -->
+  <div class="jumbotron jumbotron-fluid page-header" style="margin-bottom: 40px;">
+    <div class="container text-center py-5">
+      <h1 class="text-white display-3 mt-lg-5">Panel admin</h1>
+      <div class="d-inline-flex align-items-center text-white">
+        <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+        <i class="fa fa-circle px-3"></i>
+        <p class="m-0">Administración</p>
+      </div>
+    </div>
+  </div>
+  <!-- Header End -->
+
+  <div class="container pb-5">
+    <!-- Header admin -->
+    <div class="admin-card mb-4">
+      <div class="admin-header">
+        <div>
+          <h4 class="mb-1">Panel de administración</h4>
+          <p class="admin-subtitle mb-0">
+            Gestiona las citas y clientas registradas en Mitz Nails.
+          </p>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="admin-user-chip mr-2">
+            <div class="avatar-circle" id="adminAvatar">A</div>
+            <span id="adminName">Admin</span>
+            <small class="text-muted ml-1">Administrador</small>
+          </div>
+          <button id="logoutBtn" class="btn btn-outline-secondary btn-logout">
+            <i class="fa fa-sign-out-alt mr-1"></i> Cerrar sesión
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Métricas -->
+    <div class="row mb-3">
+      <div class="col-md-3 mb-3">
+        <div class="metric-card">
+          <div class="metric-label">Citas totales</div>
+          <div class="metric-value" id="metric-total">0</div>
+          <div class="metric-sub" id="metric-total-sub">Sin citas registradas</div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="metric-card">
+          <div class="metric-label">Pendientes</div>
+          <div class="metric-value text-warning" id="metric-pending">0</div>
+          <div class="metric-sub" id="metric-pending-sub">Pendientes por confirmar</div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="metric-card">
+          <div class="metric-label">Confirmadas</div>
+          <div class="metric-value text-success" id="metric-confirmed">0</div>
+          <div class="metric-sub">Lista para agendar</div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="metric-card">
+          <div class="metric-label">Canceladas</div>
+          <div class="metric-value text-danger" id="metric-cancelled">0</div>
+          <div class="metric-sub">Citas canceladas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gestión de citas -->
+    <div class="admin-card">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <h5 class="admin-title">Gestión de citas</h5>
+          <p class="admin-subtitle mb-0">Aprueba, modifica o cancela las citas agendadas.</p>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover mb-2">
+          <thead>
+            <tr>
+              <th>Clienta</th>
+              <th>Servicio</th>
+              <th>Fecha y hora</th>
+              <th>Duración</th>
+              <th>Estado</th>
+              <th class="text-right">Total</th>
+              <th class="text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="appointmentsTable">
+            <tr id="appointmentsEmpty">
+              <td colspan="7" class="text-center text-muted py-4">
+                Aún no hay citas registradas.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Gestión de clientas (una fila por cita) -->
+    <div class="admin-card mt-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <h5 class="admin-title">Gestión de clientas</h5>
+          <p class="admin-subtitle mb-0">
+            Consulta y administra las citas de las clientas registradas en el sistema.
+          </p>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover mb-2">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th class="text-center">Teléfono</th>
+              <th class="text-center">Fecha y hora</th>
+              <th class="text-center">Notas adicionales</th>
+              <th class="text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="clientsTable">
+            <tr id="clientsEmpty">
+              <td colspan="6" class="text-center text-muted py-4">
+                Aún no hay citas de clientas registradas.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal editar cita -->
+  <div class="modal fade" id="editAppointmentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <form class="modal-content" id="editAppointmentForm">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar cita</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="editAppointmentId">
+          <div class="form-group">
+            <label>Nombre de la clienta</label>
+            <input type="text" class="form-control" id="editClientName" required>
+          </div>
+          <div class="form-group">
+            <label>Servicio</label>
+            <input type="text" class="form-control" id="editServiceName" required>
+          </div>
+          <div class="form-group">
+            <label>Fecha y hora</label>
+            <input type="datetime-local" class="form-control" id="editStartsAt">
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Duración (min)</label>
+              <input type="number" class="form-control" id="editDuration">
+            </div>
+            <div class="form-group col-md-6">
+              <label>Precio (MXN)</label>
+              <input type="number" class="form-control" id="editPrice" step="0.01">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Estado</label>
+            <select class="form-control" id="editStatus">
+              <option value="pending">Pendiente</option>
+              <option value="confirmed">Confirmada</option>
+              <option value="done">Realizada</option>
+              <option value="cancelled">Cancelada</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal editar datos de clienta (para una cita en específico) -->
+  <div class="modal fade" id="editClientModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <form class="modal-content" id="editClientForm">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar datos de clienta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="editClientId">
+          <div class="form-group">
+            <label>Nombre de la clienta</label>
+            <input type="text" class="form-control" id="editClientNameUser" required>
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" class="form-control" id="editClientPhone">
+          </div>
+          <div class="form-group">
+            <label>Notas adicionales</label>
+            <textarea class="form-control" id="editClientNotes" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Overlay de confirmación -->
+  <div id="deleteConfirmOverlay">
+    <div id="deleteConfirmBox">
+      <h6>Confirmar acción</h6>
+      <p id="deleteConfirmMessage">¿Estás segura de realizar esta acción?</p>
+      <div class="text-right">
+        <button id="deleteCancelBtn" class="btn btn-light btn-sm mr-2">Cancelar</button>
+        <button id="deleteConfirmBtn" class="btn btn-danger btn-sm">Sí, continuar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Start -->
+  <div class="container-fluid footer bg-light py-4 mt-5">
+    <div class="container text-center">
+      <p class="m-0">&copy; Mitz Nails. Todos los derechos reservados.</p>
+    </div>
+  </div>
+  <!-- Footer End -->
+
+  <!-- JS LIBS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/isotope/isotope.pkgd.min.js"></script>
+  <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+  <!-- Template main JS -->
+  <script src="js/main.js"></script>
+  <!-- Navbar login dinámico -->
+  <script type="module" src="js/auth-nav.js"></script>
+
+  <!-- Lógica del panel admin -->
+  <script type="module">
+    import { auth, db } from "./js/firebase.js";
+    import {
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+    import {
+      collection,
+      query,
+      where,
+      orderBy,
+      limit,
+      onSnapshot,
+      doc,
+      getDoc,
+      updateDoc,
+      deleteDoc
+    } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    const adminNameEl = document.getElementById("adminName");
+    const adminAvatarEl = document.getElementById("adminAvatar");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const tableBody = document.getElementById("appointmentsTable");
+    const emptyState = document.getElementById("appointmentsEmpty");
+
+    const clientsTableBody = document.getElementById("clientsTable");
+    const clientsEmpty = document.getElementById("clientsEmpty");
+
+    const metricTotal = document.getElementById("metric-total");
+    const metricTotalSub = document.getElementById("metric-total-sub");
+    const metricPending = document.getElementById("metric-pending");
+    const metricPendingSub = document.getElementById("metric-pending-sub");
+    const metricConfirmed = document.getElementById("metric-confirmed");
+    const metricCancelled = document.getElementById("metric-cancelled");
+
+    // elementos modal cita
+    const editAppointmentId = document.getElementById("editAppointmentId");
+    const editClientNameInput = document.getElementById("editClientName");
+    const editServiceNameInput = document.getElementById("editServiceName");
+    const editStartsAtInput = document.getElementById("editStartsAt");
+    const editDurationInput = document.getElementById("editDuration");
+    const editPriceInput = document.getElementById("editPrice");
+    const editStatusSelect = document.getElementById("editStatus");
+    const editAppointmentForm = document.getElementById("editAppointmentForm");
+
+    // elementos modal clienta/cita
+    const editClientIdInput = document.getElementById("editClientId");
+    const editClientNameUserInput = document.getElementById("editClientNameUser");
+    const editClientPhoneInput = document.getElementById("editClientPhone");
+    const editClientNotesInput = document.getElementById("editClientNotes");
+    const editClientForm = document.getElementById("editClientForm");
+
+    // overlay confirm
+    const deleteOverlay = document.getElementById("deleteConfirmOverlay");
+    const deleteMessageEl = document.getElementById("deleteConfirmMessage");
+    const deleteConfirmBtn = document.getElementById("deleteConfirmBtn");
+    const deleteCancelBtn = document.getElementById("deleteCancelBtn");
+    let currentDeleteAction = null;
+
+    // =============== NUEVO: FUNCIÓN WHATSAPP ===============
+    function enviarWhatsApp(numeroSinLada, mensaje) {
+      const lada = "52"; // 🇲🇽 México
+
+      if (!numeroSinLada) {
+        alert("Esta cita no tiene teléfono registrado para WhatsApp.");
+        return;
+      }
+
+      let numeroLimpio = String(numeroSinLada).replace(/\D/g, "");
+      const url = `https://wa.me/${lada}${numeroLimpio}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, "_blank");
+    }
+    // ========================================================
+
+    function openDeleteConfirm(message, action) {
+      if (deleteMessageEl) deleteMessageEl.textContent = message;
+      currentDeleteAction = action;
+      if (deleteOverlay) deleteOverlay.style.display = "flex";
+    }
+
+    function closeDeleteConfirm() {
+      if (deleteOverlay) deleteOverlay.style.display = "none";
+      currentDeleteAction = null;
+    }
+
+    if (deleteCancelBtn) {
+      deleteCancelBtn.addEventListener("click", () => closeDeleteConfirm());
+    }
+
+    if (deleteConfirmBtn) {
+      deleteConfirmBtn.addEventListener("click", async () => {
+        if (typeof currentDeleteAction === "function") {
+          await currentDeleteAction();
+        }
+        closeDeleteConfirm();
+      });
+    }
+
+    // ===== AUTH ADMIN =====
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        const snap = await getDoc(doc(db, "users", user.uid));
+        let role = "clienta";
+        let name = user.email || "Admin";
+
+        if (snap.exists()) {
+          const data = snap.data();
+          if (data.name) name = data.name;
+          if (data.role) role = data.role;
+        }
+
+        if (role !== "admin") {
+          alert("No tienes permisos para entrar al panel de administración.");
+          window.location.href = "clientas.html";
+          return;
+        }
+
+        adminNameEl.textContent = name;
+        adminAvatarEl.textContent = name.charAt(0).toUpperCase();
+
+        listenAppointments();
+        listenClients();
+      } catch (err) {
+        console.error("Error verificando rol:", err);
+        alert("Ocurrió un problema verificando tu cuenta.");
+        window.location.href = "login.html";
+      }
+    });
+
+    // ===== CITAS (TABLA DE ARRIBA) =====
+    function listenAppointments() {
+      try {
+        const q = query(
+          collection(db, "appointments"),
+          orderBy("starts_at", "asc"),
+          limit(50)
+        );
+
+        onSnapshot(q, (snapshot) => {
+          const items = [];
+          snapshot.forEach((docSnap) => {
+            items.push({ id: docSnap.id, ...docSnap.data() });
+          });
+          renderAppointments(items);
+        }, (err) => {
+          console.error("Error leyendo citas:", err);
+          emptyState.classList.remove("d-none");
+          emptyState.textContent = "No se pudieron cargar las citas.";
+        });
+      } catch (err) {
+        console.error("Error inicializando citas:", err);
+        emptyState.classList.remove("d-none");
+        emptyState.textContent = "No se pudieron cargar las citas.";
+      }
+    }
+
+    function renderAppointments(items) {
+      tableBody.innerHTML = "";
+
+      if (!items.length) {
+        emptyState.classList.remove("d-none");
+        metricTotal.textContent = "0";
+        metricTotalSub.textContent = "Sin citas registradas";
+        metricPending.textContent = "0";
+        metricPendingSub.textContent = "Pendientes por confirmar";
+        metricConfirmed.textContent = "0";
+        metricCancelled.textContent = "0";
+        return;
+      }
+
+      emptyState.classList.add("d-none");
+
+      let total = items.length;
+      let pending = 0;
+      let confirmed = 0;
+      let cancelled = 0;
+
+      items.forEach((apt) => {
+        const tr = document.createElement("tr");
+        const status = apt.status || "pending";
+
+        // Clienta
+        const tdClient = document.createElement("td");
+        const avatar = document.createElement("span");
+        avatar.className = "avatar-circle";
+        avatar.textContent = (apt.client_name || "?").charAt(0).toUpperCase();
+        tdClient.appendChild(avatar);
+        tdClient.appendChild(document.createTextNode(" " + (apt.client_name || "Sin nombre")));
+        tr.appendChild(tdClient);
+
+        // Servicio
+        const tdService = document.createElement("td");
+        tdService.textContent = apt.service_name || "-";
+        tr.appendChild(tdService);
+
+        // Fecha/hora
+        const tdTime = document.createElement("td");
+        if (apt.starts_at && apt.starts_at.toDate) {
+          const d = apt.starts_at.toDate();
+          const f = d.toLocaleDateString("es-MX", { day: "2-digit", month: "short", year: "numeric" });
+          const h = d.toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" });
+          tdTime.textContent = `${f}, ${h}`;
+        } else if (typeof apt.starts_at === "string") {
+          tdTime.textContent = apt.starts_at;
+        } else {
+          tdTime.textContent = "-";
+        }
+        tr.appendChild(tdTime);
+
+        // Duración
+        const tdDur = document.createElement("td");
+        tdDur.textContent = apt.duration_min ? apt.duration_min + " min" : "-";
+        tr.appendChild(tdDur);
+
+        // Estado
+        const tdStatus = document.createElement("td");
+        const pill = document.createElement("span");
+        pill.classList.add("status-pill");
+        switch (status) {
+          case "pending":
+            pill.classList.add("status-pending");
+            pill.textContent = "Pendiente";
+            pending++;
+            break;
+          case "confirmed":
+            pill.classList.add("status-confirmed");
+            pill.textContent = "Confirmada";
+            confirmed++;
+            break;
+          case "done":
+            pill.classList.add("status-done");
+            pill.textContent = "Realizada";
+            break;
+          case "cancelled":
+            pill.classList.add("status-cancelled");
+            pill.textContent = "Cancelada";
+            cancelled++;
+            break;
+          default:
+            pill.textContent = status;
+        }
+        tdStatus.appendChild(pill);
+        tr.appendChild(tdStatus);
+
+        // Total
+        const tdTotal = document.createElement("td");
+        tdTotal.className = "text-right";
+        tdTotal.textContent = (apt.price_mxn || apt.price_mxn === 0) ? `$${apt.price_mxn}` : "-";
+        tr.appendChild(tdTotal);
+
+        // Acciones
+        const tdActions = document.createElement("td");
+        tdActions.className = "text-right";
+
+        // ========= APROBAR (CONFIRMAR + WHATSAPP) =========
+        const btnApprove = document.createElement("button");
+        btnApprove.type = "button";
+        btnApprove.className = "btn btn-sm btn-approve mr-1 mb-1";
+        btnApprove.textContent = "Aprobar";
+        btnApprove.onclick = async () => {
+          try {
+            await updateDoc(doc(db, "appointments", apt.id), { status: "confirmed" });
+
+            // Solo si la clienta pidió confirmación por WhatsApp
+            if (apt.whatsapp) {
+              let fechaTexto = "";
+              let horaTexto = "";
+
+              if (apt.starts_at && apt.starts_at.toDate) {
+                const d = apt.starts_at.toDate();
+                fechaTexto = d.toLocaleDateString("es-MX", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric"
+                });
+                horaTexto = d.toLocaleTimeString("es-MX", {
+                  hour: "2-digit",
+                  minute: "2-digit"
+                });
+              } else if (typeof apt.starts_at === "string") {
+                const partes = apt.starts_at.split(" ");
+                fechaTexto = partes[0] || "";
+                horaTexto = partes[1] || "";
+              }
+
+              const mensaje = `Hola ${apt.client_name || ""} 🌸\n\n` +
+                `Tu cita en *Mitz Nails* ha sido *CONFIRMADA*.\n\n` +
+                `📅 Fecha: ${fechaTexto}\n` +
+                `🕒 Hora: ${horaTexto}\n` +
+                `💅 Servicio: ${apt.service_name || ""}\n\n` +
+                `¡Te esperamos! ✨`;
+
+              enviarWhatsApp(
+                apt.phone || apt.telefono || apt.phoneNumber,
+                mensaje
+              );
+            }
+          } catch (e) {
+            console.error(e);
+            alert("No se pudo aprobar la cita.");
+          }
+        };
+
+        // ========= CANCELAR (CAMBIAR ESTADO + WHATSAPP) =========
+        const btnCancel = document.createElement("button");
+        btnCancel.type = "button";
+        btnCancel.className = "btn btn-sm btn-cancel mr-1 mb-1";
+        btnCancel.textContent = "Cancelar";
+        btnCancel.onclick = () => {
+          openDeleteConfirm("¿Seguro que deseas cancelar esta cita?", async () => {
+            try {
+              await updateDoc(doc(db, "appointments", apt.id), { status: "cancelled" });
+
+              // Solo si la clienta pidió confirmación por WhatsApp
+              if (apt.whatsapp) {
+                let fechaTexto = "";
+                let horaTexto = "";
+
+                if (apt.starts_at && apt.starts_at.toDate) {
+                  const d = apt.starts_at.toDate();
+                  fechaTexto = d.toLocaleDateString("es-MX", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                  });
+                  horaTexto = d.toLocaleTimeString("es-MX", {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                  });
+                } else if (typeof apt.starts_at === "string") {
+                  const partes = apt.starts_at.split(" ");
+                  fechaTexto = partes[0] || "";
+                  horaTexto = partes[1] || "";
+                }
+
+                const mensaje = `Hola ${apt.client_name || ""} 🌸\n\n` +
+                  `Lamentamos informarte que tu cita en *Mitz Nails* del día ${fechaTexto} a las ${horaTexto} ha sido *CANCELADA*.\n\n` +
+                  `Por favor contáctanos para reprogramarla. 💅`;
+
+                enviarWhatsApp(
+                  apt.phone || apt.telefono || apt.phoneNumber,
+                  mensaje
+                );
+              }
+            } catch (e) {
+              console.error(e);
+              alert("No se pudo cancelar la cita.");
+            }
+          });
+        };
+
+        if (status === "confirmed") btnApprove.classList.add("btn-approve-active");
+        if (status === "cancelled") btnCancel.classList.add("btn-cancel-active");
+
+        const btnEdit = document.createElement("button");
+        btnEdit.type = "button";
+        btnEdit.className = "btn btn-sm btn-outline-primary mr-1 mb-1";
+        btnEdit.textContent = "Editar";
+        btnEdit.onclick = () => openEditAppointmentModal(apt);
+
+        const btnDelete = document.createElement("button");
+        btnDelete.type = "button";
+        btnDelete.className = "btn btn-sm btn-outline-secondary mb-1";
+        btnDelete.textContent = "Borrar";
+        btnDelete.onclick = () => {
+          openDeleteConfirm("¿Seguro que deseas borrar esta cita?", async () => {
+            try {
+              await deleteDoc(doc(db, "appointments", apt.id));
+            } catch (e) {
+              console.error(e);
+              alert("No se pudo borrar la cita.");
+            }
+          });
+        };
+
+        tdActions.appendChild(btnApprove);
+        tdActions.appendChild(btnCancel);
+        tdActions.appendChild(btnEdit);
+        tdActions.appendChild(btnDelete);
+        tr.appendChild(tdActions);
+
+        tableBody.appendChild(tr);
+      });
+
+      metricTotal.textContent = total;
+      metricTotalSub.textContent = total === 1 ? "1 cita registrada" : `${total} citas registradas`;
+      metricPending.textContent = pending;
+      metricPendingSub.textContent = pending === 0 ? "Nada pendiente" : `${pending} por confirmar`;
+      metricConfirmed.textContent = confirmed;
+      metricCancelled.textContent = cancelled;
+    }
+
+    // Helpers modal cita
+    function formatDateTimeLocal(date) {
+      const pad = (n) => (n < 10 ? "0" + n : n);
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+    }
+
+    function openEditAppointmentModal(apt) {
+      editAppointmentId.value = apt.id || "";
+      editClientNameInput.value = apt.client_name || "";
+      editServiceNameInput.value = apt.service_name || "";
+
+      let d = null;
+      if (apt.starts_at && apt.starts_at.toDate) {
+        d = apt.starts_at.toDate();
+      } else if (typeof apt.starts_at === "string") {
+        d = new Date(apt.starts_at);
+      }
+      editStartsAtInput.value = d ? formatDateTimeLocal(d) : "";
+      editDurationInput.value = apt.duration_min || "";
+      editPriceInput.value = apt.price_mxn || "";
+      editStatusSelect.value = apt.status || "pending";
+
+      $('#editAppointmentModal').modal('show');
+    }
+
+    editAppointmentForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = editAppointmentId.value;
+      if (!id) return;
+
+      const clientName = editClientNameInput.value.trim();
+      const serviceName = editServiceNameInput.value.trim();
+      const startsAtStr = editStartsAtInput.value;
+      const duration = editDurationInput.value ? parseInt(editDurationInput.value, 10) : null;
+      const price = editPriceInput.value ? parseFloat(editPriceInput.value) : null;
+      const status = editStatusSelect.value || "pending";
+
+      let startsAtDate = null;
+      if (startsAtStr) {
+        startsAtDate = new Date(startsAtStr);
+      }
+
+      try {
+        const ref = doc(db, "appointments", id);
+        const update = {
+          client_name: clientName,
+          service_name: serviceName,
+          status
+        };
+        if (startsAtDate) update.starts_at = startsAtDate;
+        if (duration !== null) update.duration_min = duration;
+        if (price !== null) update.price_mxn = price;
+
+        await updateDoc(ref, update);
+        $('#editAppointmentModal').modal('hide');
+      } catch (err) {
+        console.error("Error actualizando cita:", err);
+        alert("No se pudieron guardar los cambios de la cita.");
+      }
+    });
+
+    // ===== GESTIÓN DE CLIENTAS (UNA FILA POR CITA) =====
+    function listenClients() {
+      try {
+        const q = query(
+          collection(db, "appointments"),
+          orderBy("created_at", "desc"),
+          limit(200)
+        );
+
+        onSnapshot(q, (snapshot) => {
+          const items = [];
+          snapshot.forEach((docSnap) => {
+            items.push({ id: docSnap.id, ...docSnap.data() });
+          });
+          renderClients(items);
+        }, (err) => {
+          console.error("Error leyendo citas/clientas:", err);
+          clientsEmpty.classList.remove("d-none");
+          clientsEmpty.textContent = "No se pudieron cargar las citas de clientas.";
+        });
+      } catch (err) {
+        console.error("Error inicializando clientas:", err);
+        clientsEmpty.classList.remove("d-none");
+        clientsEmpty.textContent = "No se pudieron cargar las citas de clientas.";
+      }
+    }
+
+    function renderClients(items) {
+      clientsTableBody.innerHTML = "";
+
+      if (!items.length) {
+        clientsEmpty.classList.remove("d-none");
+        return;
+      }
+      clientsEmpty.classList.add("d-none");
+
+      items.forEach((apt) => {
+        const tr = document.createElement("tr");
+
+        // Nombre
+        const tdName = document.createElement("td");
+        tdName.textContent = apt.client_name || "Sin nombre";
+        tr.appendChild(tdName);
+
+        // Correo
+        const tdEmail = document.createElement("td");
+        tdEmail.textContent = apt.client_email || "-";
+        tr.appendChild(tdEmail);
+
+        // Teléfono
+        const tdPhone = document.createElement("td");
+        tdPhone.className = "text-center";
+        tdPhone.textContent = apt.phone || apt.telefono || apt.phoneNumber || "-";
+        tr.appendChild(tdPhone);
+
+        // Fecha de cita + creación
+        const tdDate = document.createElement("td");
+        tdDate.className = "text-center";
+
+        let citaTexto = "-";
+        if (apt.starts_at && apt.starts_at.toDate) {
+          const ds = apt.starts_at.toDate();
+          citaTexto = ds.toLocaleString("es-MX", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          });
+        } else if (typeof apt.starts_at === "string") {
+          citaTexto = apt.starts_at;
+        }
+
+        let creadaTexto = "-";
+        if (apt.created_at && apt.created_at.toDate) {
+          const dc = apt.created_at.toDate();
+          creadaTexto = dc.toLocaleString("es-MX", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          });
+        }
+
+        tdDate.innerHTML = `
+          ${citaTexto}<br>
+          <small class="text-muted">Creada: ${creadaTexto}</small>
+        `;
+        tr.appendChild(tdDate);
+
+        // Notas
+        const tdNotes = document.createElement("td");
+        tdNotes.className = "text-center";
+        tdNotes.textContent = apt.notes || "-";
+        tr.appendChild(tdNotes);
+
+        // Acciones
+        const tdActions = document.createElement("td");
+        tdActions.className = "text-right";
+
+        const btnEdit = document.createElement("button");
+        btnEdit.type = "button";
+        btnEdit.className = "btn btn-sm btn-outline-primary mr-1 mb-1";
+        btnEdit.textContent = "Editar";
+        btnEdit.onclick = () => openEditClientModal(apt);
+
+        const btnDelete = document.createElement("button");
+        btnDelete.type = "button";
+        btnDelete.className = "btn btn-sm btn-outline-secondary mb-1";
+        btnDelete.textContent = "Borrar";
+        btnDelete.onclick = () => {
+          openDeleteConfirm("¿Seguro que deseas borrar esta cita del historial?", async () => {
+            try {
+              await deleteDoc(doc(db, "appointments", apt.id));
+            } catch (e) {
+              console.error(e);
+              alert("No se pudo borrar la cita.");
+            }
+          });
+        };
+
+        tdActions.appendChild(btnEdit);
+        tdActions.appendChild(btnDelete);
+        tr.appendChild(tdActions);
+
+        clientsTableBody.appendChild(tr);
+      });
+    }
+
+    function openEditClientModal(apt) {
+      editClientIdInput.value = apt.id || "";
+      editClientNameUserInput.value = apt.client_name || "";
+      editClientPhoneInput.value = apt.phone || apt.telefono || apt.phoneNumber || "";
+      editClientNotesInput.value = apt.notes || "";
+      $('#editClientModal').modal('show');
+    }
+
+    editClientForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = editClientIdInput.value;
+      if (!id) return;
+
+      const name = editClientNameUserInput.value.trim();
+      const phone = editClientPhoneInput.value.trim();
+      const notes = editClientNotesInput.value.trim();
+
+      try {
+        await updateDoc(doc(db, "appointments", id), {
+          client_name: name,
+          phone: phone || null,
+          notes: notes || null
+        });
+        $('#editClientModal').modal('hide');
+      } catch (err) {
+        console.error("Error actualizando datos de clienta:", err);
+        alert("No se pudieron guardar los cambios.");
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+
+</html>
