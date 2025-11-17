@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mitz Nails - Agendar cita</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="uñas, citas, manicura, pedicura, gel, acrílico" name="keywords">
+    <meta content="Agenda tus citas de uñas en Mitz Nails y sincronízalas con Google Calendar." name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-primary py-3 d-none d-md-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-white pr-3" href="#">Preguntas frecuentes</a>
+                        <span class="text-white">|</span>
+                        <a class="text-white px-3" href="#">Ayuda</a>
+                        <span class="text-white">|</span>
+                        <a class="text-white pl-3" href="#">Soporte</a>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center text-lg-right">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-white px-3" href="#">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="text-white px-3" href="#">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a class="text-white px-3" href="#">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a class="text-white pl-3" href="#">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid position-relative nav-bar p-0">
+        <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
+            <nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
+                <a href="index.html" class="navbar-brand d-block d-lg-none">
+                    <h1 class="m-0 display-4 text-primary"><span class="text-secondary">Mitz</span>Nails</h1>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto py-0">
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="service.html" class="nav-item nav-link">Servicios</a>
+                        <a href="gallery.html" class="nav-item nav-link">Galería</a>
+                    </div>
+                    <a href="index.html" class="navbar-brand mx-5 d-none d-lg-block">
+                        <h1 class="m-0 display-4 text-primary"><span class="text-secondary">Mitz</span>Nails</h1>
+                    </a>
+                    <div class="navbar-nav mr-auto py-0">
+                        <a href="citas.html" class="nav-item nav-link active">Agendar cita</a>
+                        <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                        <a href="login.html" class="nav-item nav-link">Iniciar sesión</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid page-header" style="margin-bottom: 90px;">
+        <div class="container text-center py-5">
+            <h1 class="text-white display-3 mt-lg-5">Agendar cita</h1>
+            <div class="d-inline-flex align-items-center text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Home</a></p>
+                <i class="fa fa-circle px-3"></i>
+                <p class="m-0">Citas</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Citas Start -->
+    <div class="container py-5">
+        <div class="row">
+            <!-- Formulario de cita -->
+            <div class="col-lg-7 mb-5">
+                <div class="bg-light rounded p-4 shadow-sm">
+                    <h3 class="mb-4">Reserva tu cita en Mitz Nails</h3>
+                    <p class="mb-4">
+                        Llena el formulario y tu cita se enviará al panel de administración.
+                        Si conectas tu cuenta de Google, también se agregará a tu Google Calendar.
+                    </p>
+
+                    <button id="authorize_button" class="btn btn-outline-primary mb-4" type="button">
+                        <i class="fab fa-google mr-2"></i> Conectar con Google Calendar
+                    </button>
+                    <div id="calendar_status" class="small text-muted mb-3">
+                        (Opcional) Conecta tu cuenta para guardar tus citas en Google Calendar.
+                    </div>
+
+                    <!-- IMPORTANTE: ya no usamos guardar_cita.php -->
+                    <form id="citaForm">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Nombre completo</label>
+                                <input type="text" class="form-control" name="nombre" placeholder="Tu nombre" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Teléfono</label>
+                                <input type="tel" class="form-control" name="telefono" placeholder="Ej. 899 000 0000" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Correo electrónico (para confirmación y Calendar)</label>
+                            <input type="email" class="form-control" name="correo" placeholder="tucorreo@example.com">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Servicio</label>
+                                <select class="form-control" name="servicio" required>
+                                    <option value="">Selecciona un servicio</option>
+                                    <option value="Manicure clásico">Manicure clásico</option>
+                                    <option value="Pedicure spa">Pedicure spa</option>
+                                    <option value="Gel semipermanente">Gel semipermanente</option>
+                                    <option value="Baño de acrílico">Baño de acrílico</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Fecha</label>
+                                <input type="date" class="form-control" name="fecha" id="fecha" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Hora</label>
+                                <input type="time" class="form-control" name="hora" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Notas adicionales</label>
+                            <textarea class="form-control" name="notas" rows="3"
+                                placeholder="Ej. Color que te gustaría, referencia, ocasión especial..."></textarea>
+                        </div>
+
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="whatsappCheck" name="whatsapp">
+                            <label class="form-check-label" for="whatsappCheck">Quiero confirmación por WhatsApp</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary px-4 py-2">
+                            Agendar cita
+                        </button>
+
+                        <div id="form_message" class="mt-3 small"></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Info para cliente / admin -->
+            <div class="col-lg-5">
+                <div class="bg-white rounded p-4 shadow-sm mb-4">
+                    <h4 class="mb-3">¿Cómo funciona?</h4>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><i class="fa fa-check text-secondary mr-2"></i> Llenas el formulario con tus
+                            datos y el servicio.</li>
+                        <li class="mb-2"><i class="fa fa-check text-secondary mr-2"></i> La cita se envía al sistema
+                            para que el <strong>admin</strong> la revise y confirme.</li>
+                        <li class="mb-2"><i class="fa fa-check text-secondary mr-2"></i> Opcional: conectas tu Google y
+                            se agrega a tu calendario.</li>
+                        <li class="mb-2"><i class="fa fa-check text-secondary mr-2"></i> Puedes recibir confirmación por
+                            WhatsApp o correo.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-light rounded p-4 shadow-sm">
+                    <h4 class="mb-3">Resumen de tu cita</h4>
+                    <p class="small text-muted mb-1">
+                        Cuando llenes el formulario, aquí puedes mostrar un resumen
+                        (se arma en la pantalla de confirmación).
+                    </p>
+                    <p class="mb-0">
+                        <strong>Admin:</strong> la información de la cita se guarda en la colección
+                        <code>appointments</code> de Firestore y se muestra en el panel de administración.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Citas End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer bg-light py-5" style="margin-top: 90px;">
+        <div class="container text-center py-5">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <a href="index.html" class="navbar-brand m-0">
+                        <h1 class="m-0 mt-n2 display-4 text-primary"><span class="text-secondary">Mitz</span>Nails</h1>
+                    </a>
+                </div>
+                <div class="col-12 mb-4">
+                    <a class="btn btn-outline-secondary btn-social mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-secondary btn-social mr-2" href="#"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-outline-secondary btn-social mr-2" href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a class="btn btn-outline-secondary btn-social" href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+                <div class="col-12 mt-2 mb-4">
+                    <div class="row">
+                        <div class="col-sm-6 text-center text-sm-right border-right mb-3 mb-sm-0">
+                            <h5 class="font-weight-bold mb-2">Ubicación</h5>
+                            <p class="mb-2">Guanajuato, Río Bravo</p>
+                            <p class="mb-0">+52 1 899 289 3083</p>
+                        </div>
+                        <div class="col-sm-6 text-center text-sm-left">
+                            <h5 class="font-weight-bold mb-2">Horario</h5>
+                            <p class="mb-2">Lunes – Sábado, 8AM – 5PM</p>
+                            <p class="mb-0">Domingo: Cerrado</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <p class="m-0">&copy; Mitz Nails. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-secondary px-2 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Google API -->
+    <script src="https://apis.google.com/js/api.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- Script citas + Google Calendar + Firestore -->
+    <script type="module">
+        // ====== FIRESTORE ======
+        import { db } from "./js/firebase.js";
+        import {
+            collection,
+            addDoc,
+            serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+        // Poner fecha mínima = hoy
+        const fechaInput = document.getElementById('fecha');
+        if (fechaInput) {
+            const hoy = new Date().toISOString().split('T')[0];
+            fechaInput.min = hoy;
+        }
+
+        // === CONFIGURACIÓN GOOGLE CALENDAR ===
+        // Si no vas a usar Calendar aún, puedes dejar estos valores como están.
+        const CLIENT_ID = "TU_CLIENT_ID.apps.googleusercontent.com";
+        const API_KEY = "TU_API_KEY";
+
+        const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+        const SCOPES = "https://www.googleapis.com/auth/calendar.events";
+
+        const authorizeButton = document.getElementById("authorize_button");
+        const statusDiv = document.getElementById("calendar_status");
+
+        function handleClientLoad() {
+            gapi.load('client:auth2', initClient);
+        }
+
+        function initClient() {
+            gapi.client.init({
+                apiKey: API_KEY,
+                clientId: CLIENT_ID,
+                discoveryDocs: DISCOVERY_DOCS,
+                scope: SCOPES
+            }).then(function () {
+                const authInstance = gapi.auth2.getAuthInstance();
+                updateSigninStatus(authInstance.isSignedIn.get());
+                authInstance.isSignedIn.listen(updateSigninStatus);
+
+                authorizeButton.onclick = function () {
+                    authInstance.signIn();
+                };
+            }).catch(function (error) {
+                console.error("Error init Google API", error);
+                if (statusDiv) statusDiv.textContent = "No se pudo inicializar Google Calendar (revisa tu API Key y Client ID).";
+            });
+        }
+
+        function updateSigninStatus(isSignedIn) {
+            if (isSignedIn) {
+                if (statusDiv) statusDiv.textContent = "Conectado a Google Calendar. Tus próximas citas se pueden guardar en tu calendario.";
+                authorizeButton.textContent = "Conectado ✔";
+                authorizeButton.disabled = true;
+            } else {
+                if (statusDiv) statusDiv.textContent = "(Opcional) Conecta tu cuenta para guardar tus citas en Google Calendar.";
+            }
+        }
+
+        // Crear evento en Google Calendar
+        function crearEventoCalendar(datosCita) {
+            const authInstance = gapi.auth2.getAuthInstance();
+            if (!authInstance || !authInstance.isSignedIn.get()) {
+                console.log("No conectado a Google, no se creará evento.");
+                return;
+            }
+
+            const fecha = datosCita.fecha;    // YYYY-MM-DD
+            const hora = datosCita.hora;      // HH:MM
+            const startDateTime = new Date(`${fecha}T${hora}:00`);
+            const endDateTime = new Date(startDateTime.getTime() + 60 * 60 * 1000);
+
+            const event = {
+                summary: `Cita Mitz Nails - ${datosCita.servicio}`,
+                description: `Cliente: ${datosCita.nombre}\nTeléfono: ${datosCita.telefono}\nNotas: ${datosCita.notas || ''}`,
+                start: {
+                    dateTime: startDateTime.toISOString(),
+                    timeZone: "America/Monterrey"
+                },
+                end: {
+                    dateTime: endDateTime.toISOString(),
+                    timeZone: "America/Monterrey"
+                }
+            };
+
+            gapi.client.calendar.events.insert({
+                calendarId: 'primary',
+                resource: event
+            }).then(function () {
+                const msg = document.getElementById("form_message");
+                if (msg) {
+                    msg.textContent += " También se agregó la cita a tu Google Calendar.";
+                    msg.classList.remove("text-danger");
+                    msg.classList.add("text-success");
+                }
+            }, function (error) {
+                console.error("Error creando evento:", error);
+            });
+        }
+
+        // ===== MAPAS DE PRECIO Y DURACIÓN =====
+        const DURACIONES = {
+            "Manicure clásico": 45,
+            "Pedicure spa": 60,
+            "Gel semipermanente": 75,
+            "Baño de acrílico": 90
+        };
+
+        const PRECIOS = {
+            "Manicure clásico": 180,
+            "Pedicure spa": 220,
+            "Gel semipermanente": 250,
+            "Baño de acrílico": 280
+        };
+
+        // Manejar envío del formulario
+        const citaForm = document.getElementById("citaForm");
+
+        if (citaForm) {
+            citaForm.addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                const formData = new FormData(citaForm);
+
+                const datosCita = {
+                    nombre: formData.get("nombre"),
+                    telefono: formData.get("telefono"),
+                    correo: formData.get("correo"),
+                    servicio: formData.get("servicio"),
+                    fecha: formData.get("fecha"),
+                    hora: formData.get("hora"),
+                    notas: formData.get("notas"),
+                    whatsapp: formData.get("whatsapp") ? 1 : 0
+                };
+
+                const price_mxn = PRECIOS[datosCita.servicio] || 0;
+                const duration_min = DURACIONES[datosCita.servicio] || 45;
+                const starts_at = `${datosCita.fecha} ${datosCita.hora}`;
+
+                try {
+                    // Guardar en Firestore en la colección "appointments"
+                    await addDoc(collection(db, "appointments"), {
+                        client_name: datosCita.nombre,
+                        phone: datosCita.telefono,
+                        service_name: datosCita.servicio,
+                        price_mxn: price_mxn,
+                        duration_min: duration_min,
+                        starts_at: starts_at,       // texto, como lo espera admin.html
+                        status: "pending",
+                        created_at: serverTimestamp()
+                    });
+
+                    // Guardar info para la página de confirmación
+                    localStorage.setItem('ultimaCita', JSON.stringify({
+                        ...datosCita,
+                        price_mxn,
+                        duration_min
+                    }));
+
+                    // Intentar crear evento en Calendar (si está conectado)
+                    if (typeof gapi !== "undefined") {
+                        crearEventoCalendar(datosCita);
+                    }
+
+                    // Redirigir a la página de confirmación
+                    window.location.href = "confirmar_citas.html";
+
+                } catch (error) {
+                    console.error("Error guardando cita en Firestore:", error);
+                    const msg = document.getElementById("form_message");
+                    if (msg) {
+                        msg.textContent = "Ocurrió un error al guardar tu cita. Intenta de nuevo.";
+                        msg.classList.remove("text-success");
+                        msg.classList.add("text-danger");
+                    }
+                }
+            });
+        }
+
+        // Iniciar Google API cuando cargue (si está disponible)
+        if (typeof gapi !== "undefined") {
+            handleClientLoad();
+        } else {
+            console.warn("gapi no cargó correctamente. Revisa la conexión a internet.");
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>Mitz Nails - Panel admin</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="uñas, citas, manicura, pedicura, gel, acrílico, panel admin" name="keywords">
+  <meta content="Panel de administración de citas para Mitz Nails." name="description">
+
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="icon">
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Tu CSS -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f6f4fb;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .admin-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .admin-header {
+      background: linear-gradient(90deg, #f78ac4, #b35dff);
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .admin-header .logo-title {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .admin-header .logo-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #fff;
+      color: #b35dff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .admin-header h1 {
+      font-size: 1.3rem;
+      margin: 0;
+    }
+
+    .admin-header small {
+      display: block;
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .admin-header .admin-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+    }
+
+    .admin-header .admin-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #fff;
+      color: #b35dff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .admin-header .admin-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .admin-header .admin-info span {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .admin-header .admin-info small {
+      font-size: 0.7rem;
+      opacity: 0.9;
+    }
+
+    .admin-header .btn-logout {
+      border-radius: 999px;
+      border: none;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      background: #fff;
+      color: #b35dff;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .admin-header .btn-logout i {
+      font-size: 0.8rem;
+    }
+
+    .admin-main {
+      flex: 1;
+      padding: 2rem 1rem;
+    }
+
+    @media (min-width: 992px) {
+      .admin-main {
+        padding: 2.5rem 3rem;
+      }
+    }
+
+    .metrics-row {
+      margin-bottom: 1.5rem;
+    }
+
+    .metric-card {
+      border-radius: 20px;
+      border: none;
+      padding: 1.2rem 1.4rem;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card h6 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.9;
+    }
+
+    .metric-card .metric-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0.4rem 0 0.1rem;
+    }
+
+    .metric-card .metric-sub {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .metric-card::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .metric-primary {
+      background: linear-gradient(135deg, #b35dff, #f78ac4);
+    }
+
+    .metric-secondary {
+      background: linear-gradient(135deg, #ffb86c, #ff7eb3);
+    }
+
+    .metric-success {
+      background: linear-gradient(135deg, #34d399, #10b981);
+    }
+
+    .metric-danger {
+      background: linear-gradient(135deg, #fb7185, #f97373);
+    }
+
+    .content-card {
+      border-radius: 20px;
+      border: none;
+      padding: 1.5rem 1.8rem;
+      background: #fff;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+      height: 100%;
+    }
+
+    .content-card h5 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .content-card .card-sub {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .table thead th {
+      border-top: none;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #6b7280;
+    }
+
+    .table tbody td {
+      vertical-align: middle;
+      font-size: 0.86rem;
+      border-top-color: #f3f4f6;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .status-pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-confirmed {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-done {
+      background: #e0f2fe;
+      color: #075985;
+    }
+
+    .status-cancelled {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .avatar-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f3e8ff;
+      color: #7c3aed;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-right: 0.4rem;
+    }
+
+    .productivity-wrapper {
+      margin-top: 0.75rem;
+    }
+
+    .productivity-bar-bg {
+      height: 8px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+    }
+
+    .productivity-bar-fill {
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #34d399, #a7f3d0);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .badge-soft {
+      border-radius: 999px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.75rem;
+    }
+
+    .badge-soft-success {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge-soft-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="admin-wrapper">
+
+    <!-- HEADER ADMIN -->
+    <header class="admin-header">
+      <div class="logo-title">
+        <div class="logo-circle">
+          <i class="fas fa-hand-sparkles"></i>
+        </div>
+        <div>
+          <h1>Mitz Nails · Panel Admin</h1>
+          <small>Control de citas, estados y productividad</small>
+        </div>
+      </div>
+
+      <div class="admin-chip">
+        <div class="admin-avatar" id="adminAvatar">M</div>
+        <div class="admin-info">
+          <span id="adminName">Cargando...</span>
+          <small>Admin</small>
+        </div>
+        <button class="btn-logout" id="logoutBtn" type="button">
+          <i class="fas fa-sign-out-alt"></i> Salir
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="admin-main">
+      <div class="container-fluid">
+
+        <!-- MÉTRICAS SUPERIORES -->
+        <div class="row metrics-row">
+          <div class="col-md-3 mb-3">
+            <div class="metric-card metric-primary">
+              <h6>Total de citas</h6>
+              <div class="metric-value" id="metric-total">0</div>
+              <div class="metric-sub" id="metric-total-sub">Sin citas registradas</div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="metric-card metric-secondary">
+              <h6>Pendientes</h6>
+              <div class="metric-value" id="metric-pending">0</div>
+              <div class="metric-sub" id="metric-pending-sub">Pendientes por confirmar</div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="metric-card metric-success">
+              <h6>Confirmadas</h6>
+              <div class="metric-value" id="metric-confirmed">0</div>
+              <div class="metric-sub">Listas para atender</div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div class="metric-card metric-danger">
+              <h6>Canceladas</h6>
+              <div class="metric-value" id="metric-cancelled">0</div>
+              <div class="metric-sub">Citas canceladas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLA + PANEL LATERAL -->
+        <div class="row">
+          <!-- Tabla de citas -->
+          <div class="col-lg-8 mb-4">
+            <div class="content-card">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                  <h5>Citas de hoy y próximas</h5>
+                  <span class="card-sub">Revisa, aprueba o cancela las citas de tus clientas.</span>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table align-middle">
+                  <thead>
+                    <tr>
+                      <th>Cliente</th>
+                      <th>Servicio</th>
+                      <th>Hora</th>
+                      <th>Duración</th>
+                      <th>Estado</th>
+                      <th class="text-end">Total</th>
+                      <th class="text-end">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="appointmentsTable">
+                    <!-- Citas reales de Firestore se pintan aquí -->
+                  </tbody>
+                </table>
+              </div>
+              <div id="appointmentsEmpty" class="text-muted small mt-2">
+                Aún no hay citas registradas. Cuando se creen en la colección <code>appointments</code>,
+                aparecerán aquí automáticamente.
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel lateral -->
+          <div class="col-lg-4 mb-4">
+            <div class="content-card mb-3">
+              <h5>Estado general del día</h5>
+              <span class="card-sub">Resumen de actividad y productividad.</span>
+
+              <div class="mt-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <span>Citas activas (pendientes + confirmadas)</span>
+                  <span class="badge badge-soft badge-soft-success" id="metric-active">0</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                  <span>Canceladas hoy</span>
+                  <span class="badge badge-soft badge-soft-danger" id="metric-cancelled-side">0</span>
+                </div>
+
+                <div class="productivity-wrapper">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Productividad del día</span>
+                    <span id="productivityLabel">0%</span>
+                  </div>
+                  <div class="productivity-bar-bg">
+                    <div class="productivity-bar-fill" id="productivityBar"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="content-card">
+              <h5>Tips para organizar tu agenda</h5>
+              <ul class="mb-0 small text-muted">
+                <li>Aprueba primero las citas de hoy y de mañana.</li>
+                <li>Si una clienta cancela con tiempo, marca la cita como cancelada y abre ese espacio.</li>
+                <li>Usa el estado “Realizada” al terminar la cita para medir tu productividad diaria.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts base -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Firebase App + compatibilidad con tu firebase.js -->
+  <script type="module">
+    // ESTE SCRIPT SOLO CARGA FIREBASE CONFIG DESDE ./js/firebase.js
+    // El código del panel va en el siguiente <script type="module">.
+    // Asegúrate de que js/firebase.js exporte: auth, db
+  </script>
+
+  <!-- LÓGICA DEL PANEL ADMIN (FIRESTORE + ACCIONES) -->
+  <script type="module">
+    // Importar Firebase inicializado (app, auth, db)
+    import { auth, db } from "./js/firebase.js";
+
+    // SDKs necesarios
+    import {
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+
+    import {
+      collection,
+      query,
+      orderBy,
+      limit,
+      onSnapshot,
+      doc,
+      getDoc,
+      updateDoc
+    } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    // --- Referencias del DOM ---
+    const adminNameEl = document.getElementById("adminName");
+    const adminAvatarEl = document.getElementById("adminAvatar");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const tableBody = document.getElementById("appointmentsTable");
+    const emptyState = document.getElementById("appointmentsEmpty");
+
+    const metricTotal = document.getElementById("metric-total");
+    const metricTotalSub = document.getElementById("metric-total-sub");
+    const metricPending = document.getElementById("metric-pending");
+    const metricPendingSub = document.getElementById("metric-pending-sub");
+    const metricConfirmed = document.getElementById("metric-confirmed");
+    const metricCancelled = document.getElementById("metric-cancelled");
+    const metricDone = document.getElementById("metric-done"); // opcional si luego lo agregas
+    const metricActive = document.getElementById("metric-active");
+    const metricCancelledSide = document.getElementById("metric-cancelled-side");
+    const productivityBar = document.getElementById("productivityBar");
+    const productivityLabel = document.getElementById("productivityLabel");
+
+    // === 1) Verificar que el usuario logueado sea ADMIN ===
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        const userRef = doc(db, "users", user.uid);
+        const snap = await getDoc(userRef);
+
+        let role = "clienta";
+        let name = user.email || "Admin";
+
+        if (snap.exists()) {
+          const data = snap.data();
+          if (data.name) name = data.name;
+          if (data.role) role = data.role;
+        }
+
+        if (role !== "admin") {
+          alert("No tienes permisos para entrar al panel de administración.");
+          window.location.href = "clientas.html";
+          return;
+        }
+
+        adminNameEl.textContent = name;
+        adminAvatarEl.textContent = name.charAt(0).toUpperCase();
+
+        // Ya sabemos que es admin -> empezar a escuchar citas
+        listenAppointments();
+      } catch (error) {
+        console.error("Error verificando rol:", error);
+        alert("Ocurrió un problema verificando tu cuenta. Intenta nuevamente.");
+        window.location.href = "login.html";
+      }
+    });
+
+    // === 2) Escuchar en tiempo real las citas ===
+    function listenAppointments() {
+      try {
+        const q = query(
+          collection(db, "appointments"),
+          orderBy("starts_at", "asc"),
+          limit(50)
+        );
+
+        onSnapshot(
+          q,
+          (snapshot) => {
+            const appointments = [];
+            snapshot.forEach((docSnap) => {
+              appointments.push({ id: docSnap.id, ...docSnap.data() });
+            });
+
+            renderAppointments(appointments);
+          },
+          (error) => {
+            console.error("Error leyendo citas:", error);
+            emptyState.classList.remove("d-none");
+            emptyState.textContent =
+              "No se pudieron cargar las citas (revisa las reglas de Firestore).";
+          }
+        );
+      } catch (err) {
+        console.error("Error inicializando lectura de citas:", err);
+        emptyState.classList.remove("d-none");
+        emptyState.textContent =
+          "No se pudieron cargar las citas (error de inicialización).";
+      }
+    }
+
+    // === 3) Pintar citas y métricas ===
+    function renderAppointments(items) {
+      tableBody.innerHTML = "";
+
+      if (!items.length) {
+        emptyState.classList.remove("d-none");
+        metricTotal.textContent = "0";
+        metricTotalSub.textContent = "Sin citas registradas";
+        metricPending.textContent = "0";
+        metricPendingSub.textContent = "Pendientes por confirmar";
+        metricConfirmed.textContent = "0";
+        metricCancelled.textContent = "0";
+        if (metricDone) metricDone.textContent = "0";
+        metricActive.textContent = "0";
+        metricCancelledSide.textContent = "0";
+        updateProductivity(0, 0);
+        return;
+      }
+
+      emptyState.classList.add("d-none");
+
+      let total = items.length;
+      let pending = 0;
+      let confirmed = 0;
+      let cancelled = 0;
+      let done = 0;
+
+      items.forEach((apt) => {
+        const tr = document.createElement("tr");
+
+        const status = apt.status || "pending";
+
+        // --- CLIENTE ---
+        const tdClient = document.createElement("td");
+        const avatar = document.createElement("span");
+        avatar.className = "avatar-circle";
+        const initial = (apt.client_name || "?").charAt(0).toUpperCase();
+        avatar.textContent = initial;
+        tdClient.appendChild(avatar);
+        tdClient.appendChild(
+          document.createTextNode(" " + (apt.client_name || "Sin nombre"))
+        );
+        tr.appendChild(tdClient);
+
+        // --- SERVICIO ---
+        const tdService = document.createElement("td");
+        tdService.textContent = apt.service_name || "-";
+        tr.appendChild(tdService);
+
+        // --- HORA ---
+        const tdTime = document.createElement("td");
+        if (apt.starts_at && apt.starts_at.toDate) {
+          const d = apt.starts_at.toDate();
+          const fecha = d.toLocaleDateString("es-MX", {
+            weekday: "short",
+            day: "2-digit",
+            month: "short",
+          });
+          const hora = d.toLocaleTimeString("es-MX", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          tdTime.textContent = `${fecha}, ${hora}`;
+        } else if (typeof apt.starts_at === "string") {
+          tdTime.textContent = apt.starts_at;
+        } else {
+          tdTime.textContent = "-";
+        }
+        tr.appendChild(tdTime);
+
+        // --- DURACIÓN ---
+        const tdDuration = document.createElement("td");
+        tdDuration.textContent = apt.duration_min
+          ? apt.duration_min + " min"
+          : "-";
+        tr.appendChild(tdDuration);
+
+        // --- ESTADO ---
+        const tdStatus = document.createElement("td");
+        const spanStatus = document.createElement("span");
+        spanStatus.classList.add("status-pill");
+
+        switch (status) {
+          case "pending":
+            spanStatus.classList.add("status-pending");
+            spanStatus.textContent = "Pendiente";
+            pending++;
+            break;
+          case "confirmed":
+            spanStatus.classList.add("status-confirmed");
+            spanStatus.textContent = "Confirmada";
+            confirmed++;
+            break;
+          case "done":
+            spanStatus.classList.add("status-done");
+            spanStatus.textContent = "Realizada";
+            done++;
+            break;
+          case "cancelled":
+            spanStatus.classList.add("status-cancelled");
+            spanStatus.textContent = "Cancelada";
+            cancelled++;
+            break;
+          default:
+            spanStatus.textContent = status || "—";
+        }
+
+        tdStatus.appendChild(spanStatus);
+        tr.appendChild(tdStatus);
+
+        // --- TOTAL ---
+        const tdTotal = document.createElement("td");
+        tdTotal.className = "text-end";
+        const price =
+          apt.price_mxn !== undefined && apt.price_mxn !== null
+            ? "$" + apt.price_mxn
+            : "-";
+        tdTotal.textContent = price;
+        tr.appendChild(tdTotal);
+
+        // --- ACCIONES ---
+        const tdActions = document.createElement("td");
+        tdActions.className = "text-end";
+
+        // Botón Aprobar
+        const btnApprove = document.createElement("button");
+        btnApprove.type = "button";
+        btnApprove.className = "btn btn-sm btn-success mr-1";
+        btnApprove.textContent = "Aprobar";
+        btnApprove.onclick = async () => {
+          try {
+            await updateDoc(doc(db, "appointments", apt.id), {
+              status: "confirmed",
+            });
+          } catch (e) {
+            console.error("Error al aprobar cita:", e);
+            alert("No se pudo aprobar la cita. Revisa la consola.");
+          }
+        };
+
+        // Botón Cancelar
+        const btnCancel = document.createElement("button");
+        btnCancel.type = "button";
+        btnCancel.className = "btn btn-sm btn-outline-danger";
+        btnCancel.textContent = "Cancelar";
+        btnCancel.onclick = async () => {
+          const ok = confirm("¿Seguro que deseas cancelar esta cita?");
+          if (!ok) return;
+
+          try {
+            await updateDoc(doc(db, "appointments", apt.id), {
+              status: "cancelled",
+            });
+          } catch (e) {
+            console.error("Error al cancelar cita:", e);
+            alert("No se pudo cancelar la cita. Revisa la consola.");
+          }
+        };
+
+        tdActions.appendChild(btnApprove);
+        tdActions.appendChild(btnCancel);
+        tr.appendChild(tdActions);
+
+        tableBody.appendChild(tr);
+      });
+
+      // --- Métricas ---
+      metricTotal.textContent = total;
+      metricTotalSub.textContent =
+        total === 1 ? "1 cita registrada" : total + " citas registradas";
+
+      metricPending.textContent = pending;
+      metricPendingSub.textContent =
+        pending === 0 ? "Nada pendiente" : pending + " por confirmar";
+
+      metricConfirmed.textContent = confirmed;
+      metricCancelled.textContent = cancelled;
+      if (metricDone) metricDone.textContent = done;
+
+      const active = pending + confirmed;
+      metricActive.textContent = active;
+      metricCancelledSide.textContent = cancelled;
+
+      updateProductivity(done, total);
+    }
+
+    // === 4) Productividad ===
+    function updateProductivity(done, total) {
+      const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+      productivityBar.style.width = percent + "%";
+      productivityLabel.textContent = percent + "%";
+    }
+
+    // === 5) Logout ===
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "login.html";
+    });
+  </script>
+
+</body>
+
+</html>
